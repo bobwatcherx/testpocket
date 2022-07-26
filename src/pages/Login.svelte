@@ -1,28 +1,32 @@
 <script >
-	import PocketBase from 'pocketbase';
+  import PocketBase from 'pocketbase';
 const client = new PocketBase('http://localhost:8090');
+let listlogin = []
+async function getlitslogin(){
+const result = await client.Users.listAuthMethods();
+console.log(result)
+listlogin = result.authProviders
+}
+let redirecturl = "http://localhost:5173/redirect"
+getlitslogin()
+ function handlelogin(l,index){
+  localStorage.setItem('provider',JSON.stringify(l))
+  window.location.href = l.authUrl + redirecturl
+}
 
-let liststate = []
-let redirecturl = "http://localhost:5173/redirect" 
-// redirecturl GET FROM CONSOLE.google.com 
-async function listalllogin(){
-	const result = await client.Users.listAuthMethods();
-	console.log(result)
-	liststate = result.authProviders
-}
-listalllogin()
-async function googlesign(){
-	const local = localStorage.setItem("provider",JSON.stringify(liststate))
-	window.location.href = liststate[0].authUrl + redirecturl
-}
+// async function handlelogin(l,index){
+// const authData = await client.Users.authViaOAuth2(
+//     l.name, 
+//   "CODE",
+//    "VERIFIER",
+//     "REDIRECT_URL"
+//     ).then((authdata)=>{
+//       console.log(authdata)
+//     }).catch(err=>console.log(err))
+// }
 </script>
-
-<div>
-	<h1>Login page</h1>
-	<br/>
-{#each liststate as l}
-	<button
-	on:click={googlesign}
-	>{l.name}</button>
+{#each listlogin as l,index}
+  <button
+  on:click={handlelogin(l,index)}
+  >{l.name}</button>
 {/each}
-</div>

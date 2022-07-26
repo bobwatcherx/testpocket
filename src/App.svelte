@@ -1,16 +1,17 @@
-<script >
+<script>
   import { Router, Link, Route } from "svelte-navigator";
-  import Private from './pages/Private.svelte'
   import Login from './pages/Login.svelte'
+  import Private from './pages/Private.svelte'
 </script>
 
 <Router>
-  <nav>
+  <div>
+<nav style="display: flex;justify-content: space-around;">
     <Link to="/">Login</Link>
     <Link to="redirect">Private page</Link>
-  </nav>
-  <div>
-    <Route path="/" component={Login} />
-    <Route path="/redirect" component={Private} />
-  </div>
-  </Router>
+</nav>
+<br>
+      <Route path="/" component={Login} />
+      <Route path="redirect" component={Private} />
+</div>
+</Router>
