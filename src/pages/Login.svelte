@@ -13,17 +13,6 @@ getlitslogin()
   localStorage.setItem('provider',JSON.stringify(l))
   window.location.href = l.authUrl + redirecturl
 }
-
-// async function handlelogin(l,index){
-// const authData = await client.Users.authViaOAuth2(
-//     l.name, 
-//   "CODE",
-//    "VERIFIER",
-//     "REDIRECT_URL"
-//     ).then((authdata)=>{
-//       console.log(authdata)
-//     }).catch(err=>console.log(err))
-// }
 </script>
 {#each listlogin as l,index}
   <button
